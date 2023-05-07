@@ -1,0 +1,71 @@
+* {
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.header, .footer {
+    
+    height: 2.5%;
+    background-color: grey
+}
+
+.header > * {
+    margin: 0;
+}
+
+.main-app-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.control-section {
+    width: 100%;
+    height: 45%;
+    display: flex;
+    align-items: center;
+}
+
+.control-section > * {
+    width: 33%;
+    height: 80%;
+
+    border: 2px solid black;
+    margin: 10px;
+    border-radius: 5%;
+}
+
+.run-scheduling {
+    background-color: lightgray;
+}
+
+.select-frequency {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.current-schedules, .upcoming-posts {
+    height: 25%;
+    margin: 2.5%;
+    border: 2px solid black;
+    border-radius: 5%;
+}
+
+.file-selector {
+    display: flex;
+    flex-direction: column;
+}
+
+.single-post-form {
+    display: flex;
+    flex-direction: column;
+
+}

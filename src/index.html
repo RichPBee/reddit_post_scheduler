@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="../build/app.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="main-app-body">
+        <div class="header">
+            <h3>REDDULER</h3>
+        </div>
+
+        <div class="control-section">
+            <div class="file-selector">
+                <h3 id="upload-header">UPLOAD A SCHEDULE</h3>
+                <form id="file-submitter">
+                    <input type="file" id="file-selector-input" accept="*.csv" enctype="multipart/form-data" value="Choose a file"/>
+                    <button id="submit-file" type="submit" value="submit">Submit</button>
+                </form>
+                <h3 id="selected-file">Selected File: </h3>
+                <button id="create-schedule">Create Schedule</button>
+                <button id="clear-selection">Clear</button>
+            </div>
+
+
+            <div class="run-scheduling">
+                <h2>Run Scheduling</h2>
+                <form class="select-frequency">
+                    <input type="radio" name="schedule-frequency" id="0.25h">
+                    <label for="">15 minute</label>
+                    <input type="radio" name="schedule-frequency" id="0.5h">
+                    <label for="">30 minutes</label>
+                    <input type="radio" name="schedule-frequency" id="1h">
+                    <label for="">1 hour</label>
+                    <input type="radio" name="schedule-frequency" id="6h">
+                    <label for="">6 hours</label>
+                    <input type="radio" name="schedule-frequency" id="12h">
+                    <label for="">12 hours</label>
+                    <input type="radio" name="schedule-frequency" id="24h">
+                    <label for="">24 hours</label>
+                    <button id="run-schedule">Run</button>
+                </form>
+            </div>
+
+            <div class="create-single-post">
+                <h2>Create Single Post</h2>
+                <form action="" class="single-post-form">
+                    <input type="text" value="Title: ">
+                    <label for=""></label>
+                    <input type="text" value="Link: ">
+                    <label for=""></label>
+                    <input type="text" value="Subreddit: ">
+                    <label for=""></label>
+                    <input type="text" value="Date: ">
+                    <label for=""></label>
+                    <input type="text" value="Time: ">
+                    <label for=""></label>
+                    <input type="text" value="NSFW (Y/N): ">
+                    <label for=""></label>
+                    <input type="text" value="Send Replies (Y/N): ">
+                    <label for=""></label>
+                    <button class="submit-post">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="current-schedules">
+
+        </div>
+
+        <div class="upcoming-posts">
+
+        </div>
+
+
+        <div class="footer">
+
+        </div>
+    </div>
+</body>
+</html>

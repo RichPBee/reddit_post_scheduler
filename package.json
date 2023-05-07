@@ -1,0 +1,21 @@
+{
+  "name": "reddit-scheduler-app",
+  "version": "1.0.0",
+  "description": "Electron Post Scheduler App",
+  "main": "./build/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RB",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "node-cmd": "^5.0.0",
+    "snoowrap": "^1.23.0",
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "electron": "^24.1.3"
+  }
+}

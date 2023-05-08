@@ -65,9 +65,7 @@ var displayCurrentSchedules = function () { return __awaiter(_this, void 0, void
     });
 }); };
 var addToTempSchedule = function (fileData) {
-    console.log(tempSchedule);
     tempSchedule.push(fileData);
-    console.log(tempSchedule);
 };
 submitForm.addEventListener('submit', function (e) { return __awaiter(_this, void 0, void 0, function () {
     var file, fileString, fileData;
@@ -90,7 +88,9 @@ submitForm.addEventListener('submit', function (e) { return __awaiter(_this, voi
 createScheduleButton.addEventListener('click', function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, window.sendReq.addNewFile(tempSchedule)];
+            case 0: return [4 /*yield*/, tempSchedule.forEach(function (schedule) {
+                    window.sendReq.addNewFile(schedule);
+                })];
             case 1:
                 _a.sent();
                 displayCurrentSchedules();

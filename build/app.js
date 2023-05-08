@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-var newSchedule = [];
+var tempSchedule = [];
 var submitForm = document.getElementById('file-submitter');
 var selectedFileSection = document.getElementById('selected-file');
 var createScheduleButton = document.getElementById('create-schedule');
@@ -64,6 +64,11 @@ var displayCurrentSchedules = function () { return __awaiter(_this, void 0, void
         }
     });
 }); };
+var addToTempSchedule = function (fileData) {
+    console.log(tempSchedule);
+    tempSchedule.push(fileData);
+    console.log(tempSchedule);
+};
 submitForm.addEventListener('submit', function (e) { return __awaiter(_this, void 0, void 0, function () {
     var file, fileString, fileData;
     return __generator(this, function (_a) {
@@ -75,7 +80,7 @@ submitForm.addEventListener('submit', function (e) { return __awaiter(_this, voi
                 return [4 /*yield*/, window.sendReq.getFileData(fileString)];
             case 1:
                 fileData = _a.sent();
-                newSchedule = fileData;
+                addToTempSchedule(fileData);
                 displaySelectedFile(file.name);
                 document.getElementById('file-selector-input').value = "";
                 return [2 /*return*/];
@@ -85,7 +90,7 @@ submitForm.addEventListener('submit', function (e) { return __awaiter(_this, voi
 createScheduleButton.addEventListener('click', function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, window.sendReq.addNewFile(newSchedule)];
+            case 0: return [4 /*yield*/, window.sendReq.addNewFile(tempSchedule)];
             case 1:
                 _a.sent();
                 displayCurrentSchedules();
@@ -94,6 +99,6 @@ createScheduleButton.addEventListener('click', function () { return __awaiter(_t
     });
 }); });
 clearSelectionButton.addEventListener('click', function () {
-    newSchedule = [];
+    tempSchedule = [];
     selectedFileSection.innerText = "Selected File: ";
 });

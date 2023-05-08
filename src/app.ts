@@ -1,4 +1,4 @@
-let newSchedule = [];
+let tempSchedule = [];
 
 const submitForm = document.getElementById('file-submitter');
 const selectedFileSection = document.getElementById('selected-file');
@@ -8,7 +8,7 @@ const currentScheduleSection = document.querySelector('.current-schedules');
 
 const displaySelectedFile = (fileName: string) => {
     selectedFileSection.innerText = `Selected File: ${fileName}`;
-}
+};
 
 const displayCurrentSchedules = async () => {
     const currentSchedules = await window.sendReq.getCurrentSchedule();
@@ -20,25 +20,31 @@ const displayCurrentSchedules = async () => {
         scheduleCard.setAttribute('border', '3px solid black');
         scheduleCard.setAttribute('background-color', 'grey');
         currentScheduleSection.appendChild(scheduleCard);
-    })
-}
+    });
+};
+
+const addToTempSchedule = (fileData: any) => {
+    tempSchedule.push(fileData);
+};
 
 submitForm.addEventListener('submit', async e => {
     e.preventDefault();
-    const file = e.target[0].files[0]
-    const fileString: string = `${file.path}`
+    const file = e.target[0].files[0];
+    const fileString: string = `${file.path}`;
     const fileData = await window.sendReq.getFileData(fileString);
-    newSchedule = fileData;
+    addToTempSchedule(fileData);
     displaySelectedFile(file.name);
     (document.getElementById('file-selector-input') as HTMLInputElement).value = "";
 });
 
 createScheduleButton.addEventListener('click', async () => {
-    await window.sendReq.addNewFile(newSchedule);
+    await tempSchedule.forEach((schedule) => {
+        window.sendReq.addNewFile(schedule);
+    })
     displayCurrentSchedules();
-})
+});
 
 clearSelectionButton.addEventListener('click', () => {
-    newSchedule = [];
-    selectedFileSection.innerText = `Selected File: `
-})
+    tempSchedule = [];
+    selectedFileSection.innerText = `Selected File: `;
+});

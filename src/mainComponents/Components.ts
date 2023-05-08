@@ -1,4 +1,5 @@
 import Snoowrap from 'snoowrap';
+
 export type Post = {
     title: string,
     url: string,

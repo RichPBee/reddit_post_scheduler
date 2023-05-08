@@ -1,5 +1,5 @@
 /// <reference path="./components/Components.ts">
-import { Schedule, Post } from './components/Components';
+import { Schedule, Post } from './mainComponents/Components';
 
 export interface ISendReq {
    getFileData: (path: string) => Post[],

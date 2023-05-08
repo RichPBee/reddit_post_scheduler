@@ -3,18 +3,15 @@
 /// <reference path="./components/postChecker.ts">
 /// <reference path="./components/poster.ts">
 /// <reference path="./components/scheduleCreator.ts">
-import { Schedule } from './components/Components';
-import { ScheduleCreator } from './components/scheduleCreator';
+import { Schedule } from './mainComponents/Components';
+import { ScheduleCreator } from './mainComponents/scheduleCreator';
 
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path')
 const fs = require('fs').promises;
 let schedule: Schedule = [];
-
-
 let scheduleCreator = new ScheduleCreator();
-
 
 const readFilePath = async (fileName: string): Promise<string[]> => {
     let fileData = await fs.readFile(fileName, function(err, data) {

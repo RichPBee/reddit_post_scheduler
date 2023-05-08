@@ -36,13 +36,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 var tempSchedule = [];
+var nameArray = [];
 var submitForm = document.getElementById('file-submitter');
 var selectedFileSection = document.getElementById('selected-file');
+var queuedFiles = document.getElementById('current-queue');
 var createScheduleButton = document.getElementById('create-schedule');
 var clearSelectionButton = document.getElementById('clear-selection');
 var currentScheduleSection = document.querySelector('.current-schedules');
-var displaySelectedFile = function (fileName) {
+var displayLastSelectedFile = function (fileName) {
     selectedFileSection.innerText = "Selected File: ".concat(fileName);
+};
+var displaySelectedFiles = function () {
+    queuedFiles.innerHTML = "Current Queue: ";
+    if (nameArray.length > 3) {
+        for (var i = 0; i <= 3; i++) {
+            if (i === 3) {
+                queuedFiles.innerHTML += "+".concat(nameArray.length - 3);
+            }
+            else {
+                queuedFiles.innerHTML += "".concat(nameArray[i], ", ");
+            }
+        }
+    }
+    else {
+        nameArray.forEach(function (name) {
+            queuedFiles.innerHTML += "".concat(name, ", ");
+        });
+    }
 };
 var displayCurrentSchedules = function () { return __awaiter(_this, void 0, void 0, function () {
     var currentSchedules;
@@ -78,8 +98,10 @@ submitForm.addEventListener('submit', function (e) { return __awaiter(_this, voi
                 return [4 /*yield*/, window.sendReq.getFileData(fileString)];
             case 1:
                 fileData = _a.sent();
+                nameArray.unshift(file.name);
                 addToTempSchedule(fileData);
-                displaySelectedFile(file.name);
+                displayLastSelectedFile(file.name);
+                displaySelectedFiles();
                 document.getElementById('file-selector-input').value = "";
                 return [2 /*return*/];
         }
@@ -101,4 +123,5 @@ createScheduleButton.addEventListener('click', function () { return __awaiter(_t
 clearSelectionButton.addEventListener('click', function () {
     tempSchedule = [];
     selectedFileSection.innerText = "Selected File: ";
+    queuedFiles.innerText = "Current Queue: ";
 });

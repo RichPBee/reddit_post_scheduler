@@ -1,9 +1,9 @@
-/// <reference path="./components/Components.ts">
-/// <reference path="./components/inputChecker.ts">
-/// <reference path="./components/postChecker.ts">
-/// <reference path="./components/poster.ts">
-/// <reference path="./components/scheduleCreator.ts">
-import { Schedule } from './mainComponents/Components';
+/// <reference path="./mainComponents/mainComponents.ts">
+/// <reference path="./mainComponents/inputChecker.ts">
+/// <reference path="./mainComponents/postChecker.ts">
+/// <reference path="./mainComponents/poster.ts">
+/// <reference path="./mainComponents/scheduleCreator.ts">
+import { Schedule } from './mainComponents/mainComponents';
 import { ScheduleCreator } from './mainComponents/scheduleCreator';
 
 

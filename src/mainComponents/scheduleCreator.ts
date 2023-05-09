@@ -1,6 +1,6 @@
 /// <reference path="Components.ts">
 
-import { IScheduleCreator, Post, Schedule } from "./Components";
+import { IScheduleCreator, Post, Schedule } from "./mainComponents";
 
 export class ScheduleCreator implements IScheduleCreator {
     createNewSchedule(fileData: string[]): Post[] {

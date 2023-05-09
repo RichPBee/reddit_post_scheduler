@@ -1,14 +1,36 @@
 let tempSchedule = [];
+let nameArray = [];
 
 const submitForm = document.getElementById('file-submitter');
 const selectedFileSection = document.getElementById('selected-file');
+const queuedFiles = document.getElementById('current-queue');
 const createScheduleButton = document.getElementById('create-schedule');
 const clearSelectionButton = document.getElementById('clear-selection');
 const currentScheduleSection = document.querySelector('.current-schedules');
 
-const displaySelectedFile = (fileName: string) => {
+const displayLastSelectedFile = (fileName: string) => {
     selectedFileSection.innerText = `Selected File: ${fileName}`;
 };
+
+const displaySelectedFiles = () => {
+    queuedFiles.innerHTML = `Current Queue: `
+
+    if (nameArray.length > 3) {
+        for (let i = 0; i <=3 ; i++) {
+            if (i === 3) {
+                queuedFiles.innerHTML += `+${nameArray.length - 3}`
+            } 
+            else {
+                queuedFiles.innerHTML += `${nameArray[i]}, `
+            }
+        }
+    }
+    else {
+        nameArray.forEach((name) => {
+            queuedFiles.innerHTML += `${name}, `
+        })
+    }
+}
 
 const displayCurrentSchedules = async () => {
     const currentSchedules = await window.sendReq.getCurrentSchedule();
@@ -32,8 +54,10 @@ submitForm.addEventListener('submit', async e => {
     const file = e.target[0].files[0];
     const fileString: string = `${file.path}`;
     const fileData = await window.sendReq.getFileData(fileString);
+    nameArray.unshift(file.name);
     addToTempSchedule(fileData);
-    displaySelectedFile(file.name);
+    displayLastSelectedFile(file.name);
+    displaySelectedFiles();
     (document.getElementById('file-selector-input') as HTMLInputElement).value = "";
 });
 
@@ -47,4 +71,5 @@ createScheduleButton.addEventListener('click', async () => {
 clearSelectionButton.addEventListener('click', () => {
     tempSchedule = [];
     selectedFileSection.innerText = `Selected File: `;
+    queuedFiles.innerText = `Current Queue: `
 });

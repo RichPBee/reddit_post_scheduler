@@ -12,5 +12,4 @@ package. The second digit will be used for added in features and design changes.
 ---
 Version 1.0: 
 
--
 ---

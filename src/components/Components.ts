@@ -1,4 +1,21 @@
 import Snoowrap from 'snoowrap';
+
+const config = {
+    userAgent: process.env.userAgent,
+    username: process.env.username,
+    password: process.env.password,
+    clientId: process.env.clientId,
+    clientSecret: process.env.clientSecret,
+}
+
+export const snoowrap = new Snoowrap({
+    userAgent: config.userAgent,
+    username: config.username,
+    password: config.password,
+    clientId: config.clientId,
+    clientSecret: config.clientSecret
+})
+
 export type Post = {
     title: string,
     url: string,

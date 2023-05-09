@@ -109,6 +109,17 @@ input[type="text"] {
     background-color: lightgray;
 }
 
+.files-to-submit {
+    height: 5%;
+    margin: 2.5%;
+    border: 1px solid rgb(138, 136, 136);
+    border-radius: 9px;
+    background-color: lightgray; 
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
 .single-post-form {
     display: flex;
     flex-direction: column;

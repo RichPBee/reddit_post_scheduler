@@ -1,7 +1,7 @@
 import { Post, Schedule } from "../mainComponents/mainComponents";
 
 export interface IDisplayController {
-    displaySelectedFile(docSection: HTMLElement,fileName?: string, event?: SubmitEvent, baseText?: string): void,
+    displayLastSelectedFile(docSection: HTMLElement,fileName?: string, event?: SubmitEvent, baseText?: string): void,
     displayCurrentSchedules(schedule: Schedule, parentSection: HTMLElement): void,
 }
 

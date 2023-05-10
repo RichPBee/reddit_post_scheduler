@@ -2,7 +2,7 @@ import { Schedule } from "../mainComponents/mainComponents";
 import { IDisplayController } from "./appComponents";
 
 export class DisplayController implements IDisplayController {
-    displaySelectedFile(docSection: HTMLElement, fileName?: string, event?: SubmitEvent, baseText?: string): void {
+    displayLastSelectedFile(docSection: HTMLElement, fileName?: string, event?: SubmitEvent, baseText?: string): void {
         if (baseText) {
             if (event) {
                 const file = event.target[ 0 ].files[ 0 ];
@@ -34,5 +34,25 @@ export class DisplayController implements IDisplayController {
             scheduleCard.setAttribute('background-color', 'grey');
             parentSection.appendChild(scheduleCard);
         })
+    }
+
+    displaySelectedFiles = (docSection: HTMLElement, baseText: string, fileArray: string[]): void => {
+        docSection.innerHTML = `${baseText}`
+    
+        if (fileArray.length > 3) {
+            for (let i = 0; i <=3 ; i++) {
+                if (i === 3) {
+                    docSection.innerHTML += `+${fileArray.length - 3}`
+                } 
+                else {
+                    docSection.innerHTML += `${fileArray[i]}, `
+                }
+            }
+        }
+        else {
+            fileArray.forEach((name) => {
+                docSection.innerHTML += `${name}, `
+            })
+        }
     }
 }

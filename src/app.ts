@@ -10,9 +10,11 @@ const requestController = new RequestController();
 const tSController = new TempSchedController();
 
 let tempSchedule = [];
+let nameArray = [];
 
 const submitForm = document.getElementById('file-submitter');
 const selectedFileSection = document.getElementById('selected-file');
+const queuedFiles = document.getElementById('current-queue');
 const createScheduleButton = document.getElementById('create-schedule');
 const clearSelectionButton = document.getElementById('clear-selection');
 const currentScheduleSection = document.querySelector('.current-schedules') as HTMLElement;
@@ -20,8 +22,10 @@ const currentScheduleSection = document.querySelector('.current-schedules') as H
 submitForm.addEventListener('submit', async e => {
     e.preventDefault();
     const fileData = await eventController.submitFile(e);
+    nameArray.unshift(e.target[0].files[0].name);
     tempSchedule = tSController.addToTempSchedule(fileData, tempSchedule);
-    displayController.displaySelectedFile(selectedFileSection, '', e, `Selected File: ` );
+    displayController.displayLastSelectedFile(selectedFileSection, '', e, `Selected File: ` );
+    displayController.displaySelectedFiles(queuedFiles, `Current Queue: `, nameArray);
     (document.getElementById('file-selector-input') as HTMLInputElement).value = "";
 });
 
@@ -33,5 +37,7 @@ createScheduleButton.addEventListener('click', async () => {
 
 clearSelectionButton.addEventListener('click', () => {
     tempSchedule = tSController.clearTempSchedule(tempSchedule);
+    nameArray = tSController.clearTempSchedule(nameArray);
     eventController.clearSection(selectedFileSection, `Selected File: ` );
+    eventController.clearSection(queuedFiles, `Current Queue: ` );
 });

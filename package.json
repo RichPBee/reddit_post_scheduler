@@ -5,6 +5,7 @@
   "main": "./build/main.js",
   "private": true,
   "scripts": {
+    "build": "tsc && npx babel lib --out-dir build && npx webpack --mode=development",
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

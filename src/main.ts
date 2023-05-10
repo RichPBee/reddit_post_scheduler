@@ -1,20 +1,17 @@
-/// <reference path="./components/Components.ts">
-/// <reference path="./components/inputChecker.ts">
-/// <reference path="./components/postChecker.ts">
-/// <reference path="./components/poster.ts">
-/// <reference path="./components/scheduleCreator.ts">
-import { Schedule } from './components/Components';
-import { ScheduleCreator } from './components/scheduleCreator';
+/// <reference path="./mainComponents/mainComponents.ts">
+/// <reference path="./mainComponents/inputChecker.ts">
+/// <reference path="./mainComponents/postChecker.ts">
+/// <reference path="./mainComponents/poster.ts">
+/// <reference path="./mainComponents/scheduleCreator.ts">
+import { Schedule } from './mainComponents/mainComponents';
+import { ScheduleCreator } from './mainComponents/scheduleCreator';
 
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path')
 const fs = require('fs').promises;
 let schedule: Schedule = [];
-
-
 let scheduleCreator = new ScheduleCreator();
-
 
 const readFilePath = async (fileName: string): Promise<string[]> => {
     let fileData = await fs.readFile(fileName, function(err, data) {
@@ -32,7 +29,6 @@ const createWindow = () => {
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
         }
     })

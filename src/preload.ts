@@ -1,3 +1,5 @@
+import { Post } from "./mainComponents/mainComponents"
+
 const {contextBridge, ipcRenderer} = require('electron')
 
 contextBridge.exposeInMainWorld('versions', {
@@ -8,6 +10,6 @@ contextBridge.exposeInMainWorld('versions', {
 
 contextBridge.exposeInMainWorld('sendReq', {
     getFileData: (path: string): string[] => ipcRenderer.invoke('getFileData', path),
-    addNewFile: (data: string[]) => ipcRenderer.invoke('addNewFile', data),
+    addNewFile: (data: Post[]) => ipcRenderer.invoke('addNewFile', data),
     getCurrentSchedule: () => ipcRenderer.invoke('getCurrentSchedule')
 })

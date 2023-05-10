@@ -13,7 +13,6 @@ export class EventController implements IEventController {
     }
 
     async submitFile(e: SubmitEvent): Promise<Post[]> {
-        e.preventDefault
         const file = e.target[ 0 ].files[ 0 ];
         const fileString = `${file.path}`;
         const fileData = await window.sendReq.getFileData(fileString);

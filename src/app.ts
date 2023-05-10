@@ -18,6 +18,7 @@ const clearSelectionButton = document.getElementById('clear-selection');
 const currentScheduleSection = document.querySelector('.current-schedules') as HTMLElement;
 
 submitForm.addEventListener('submit', async e => {
+    e.preventDefault();
     const fileData = await eventController.submitFile(e);
     tempSchedule = tSController.addToTempSchedule(fileData, tempSchedule);
     displayController.displaySelectedFile(selectedFileSection, '', e, `Selected File: ` );

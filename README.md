@@ -12,5 +12,6 @@ package. The second digit will be used for added in features and design changes.
 ---
 Version 1.0: 
 
--
+-First major changes incorporated, including switching to a much more heavily class-based system and establishing a basic
+build task.
 ---

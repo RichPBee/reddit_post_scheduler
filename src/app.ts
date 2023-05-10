@@ -2,6 +2,7 @@ import { DisplayController } from "./appComponents/displayController";
 import { EventController } from "./appComponents/eventController";
 import { RequestController } from "./appComponents/requestController";
 import { TempSchedController } from "./appComponents/tempSchedController";
+import 'core-js/stable';
 
 const displayController = new DisplayController();
 const eventController = new EventController();

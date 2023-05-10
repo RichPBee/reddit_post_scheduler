@@ -1,50 +1,35 @@
+import { DisplayController } from "./appComponents/displayController";
+import { EventController } from "./appComponents/eventController";
+import { RequestController } from "./appComponents/requestController";
+import { TempSchedController } from "./appComponents/tempSchedController";
+
+const displayController = new DisplayController();
+const eventController = new EventController();
+const requestController = new RequestController();
+const tSController = new TempSchedController();
+
 let tempSchedule = [];
 
 const submitForm = document.getElementById('file-submitter');
 const selectedFileSection = document.getElementById('selected-file');
 const createScheduleButton = document.getElementById('create-schedule');
 const clearSelectionButton = document.getElementById('clear-selection');
-const currentScheduleSection = document.querySelector('.current-schedules');
-
-const displaySelectedFile = (fileName: string) => {
-    selectedFileSection.innerText = `Selected File: ${fileName}`;
-};
-
-const displayCurrentSchedules = async () => {
-    const currentSchedules = await window.sendReq.getCurrentSchedule();
-    currentSchedules.forEach((schedule) => {
-        const scheduleCard = document.createElement('div');
-        scheduleCard.innerText = `${schedule.length}`;
-        scheduleCard.setAttribute('height', '20%');
-        scheduleCard.setAttribute('width', '40%');
-        scheduleCard.setAttribute('border', '3px solid black');
-        scheduleCard.setAttribute('background-color', 'grey');
-        currentScheduleSection.appendChild(scheduleCard);
-    });
-};
-
-const addToTempSchedule = (fileData: any) => {
-    tempSchedule.push(fileData);
-};
+const currentScheduleSection = document.querySelector('.current-schedules') as HTMLElement;
 
 submitForm.addEventListener('submit', async e => {
-    e.preventDefault();
-    const file = e.target[0].files[0];
-    const fileString: string = `${file.path}`;
-    const fileData = await window.sendReq.getFileData(fileString);
-    addToTempSchedule(fileData);
-    displaySelectedFile(file.name);
+    const fileData = await eventController.submitFile(e);
+    tempSchedule = tSController.addToTempSchedule(fileData, tempSchedule);
+    displayController.displaySelectedFile(selectedFileSection, '', e, `Selected File: ` );
     (document.getElementById('file-selector-input') as HTMLInputElement).value = "";
 });
 
 createScheduleButton.addEventListener('click', async () => {
-    await tempSchedule.forEach((schedule) => {
-        window.sendReq.addNewFile(schedule);
-    })
-    displayCurrentSchedules();
+    eventController.submitSchedule(tempSchedule);
+    const currentSchedule = await requestController.requestCurrentSchedule();
+    displayController.displayCurrentSchedules(currentSchedule, currentScheduleSection);
 });
 
 clearSelectionButton.addEventListener('click', () => {
-    tempSchedule = [];
-    selectedFileSection.innerText = `Selected File: `;
+    tempSchedule = tSController.clearTempSchedule(tempSchedule);
+    eventController.clearSection(selectedFileSection, `Selected File: ` );
 });

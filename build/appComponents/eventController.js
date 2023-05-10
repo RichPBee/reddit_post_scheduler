@@ -36,59 +36,49 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var scheduleCreator_1 = require("./mainComponents/scheduleCreator");
-var _a = require('electron'), app = _a.app, BrowserWindow = _a.BrowserWindow, ipcMain = _a.ipcMain;
-var path = require('path');
-var fs = require('fs').promises;
-var schedule = [];
-var scheduleCreator = new scheduleCreator_1.ScheduleCreator();
-var readFilePath = function (fileName) { return __awaiter(void 0, void 0, void 0, function () {
-    var fileData, dataArray;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, fs.readFile(fileName, function (err, data) {
-                    if (err) {
-                        return console.log(err);
-                    }
-                    return data;
-                })];
-            case 1:
-                fileData = _a.sent();
-                dataArray = fileData.toString().split('\n');
-                return [2 /*return*/, dataArray];
+exports.EventController = void 0;
+var EventController = /** @class */ (function () {
+    function EventController() {
+    }
+    EventController.prototype.clearSection = function (docSection, resetText) {
+        if (resetText) {
+            docSection.innerText = "".concat(resetText);
         }
-    });
-}); };
-var createWindow = function () {
-    var win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            nodeIntegration: true,
-            preload: path.join(__dirname, 'preload.js')
+        else {
+            docSection.innerText = "";
         }
-    });
-    ipcMain.handle('getFileData', function (event, fileName) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, readFilePath(fileName)];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
+    };
+    EventController.prototype.submitFile = function (e) {
+        return __awaiter(this, void 0, void 0, function () {
+            var file, fileString, fileData;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        e.preventDefault;
+                        file = e.target[0].files[0];
+                        fileString = "".concat(file.path);
+                        return [4 /*yield*/, window.sendReq.getFileData(fileString)];
+                    case 1:
+                        fileData = _a.sent();
+                        return [2 /*return*/, fileData];
+                }
+            });
         });
-    }); });
-    ipcMain.handle('addNewFile', function (event, data) { return __awaiter(void 0, void 0, void 0, function () {
-        var possiblePosts;
-        return __generator(this, function (_a) {
-            possiblePosts = scheduleCreator.createNewSchedule(data);
-            schedule = scheduleCreator.addToScheduleArray(possiblePosts, schedule);
-            return [2 /*return*/];
+    };
+    EventController.prototype.submitSchedule = function (schedule) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, schedule.forEach(function (subSchedule) {
+                            window.sendReq.addNewFile(subSchedule);
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
         });
-    }); });
-    ipcMain.handle('getCurrentSchedule', function () {
-        return schedule;
-    });
-    win.loadFile('./src/index.html');
-};
-app.whenReady().then(function () {
-    createWindow();
-});
+    };
+    return EventController;
+}());
+exports.EventController = EventController;

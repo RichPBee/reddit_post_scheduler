@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,71 +35,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var displayController_1 = require("./appComponents/displayController");
+var eventController_1 = require("./appComponents/eventController");
+var requestController_1 = require("./appComponents/requestController");
+var tempSchedController_1 = require("./appComponents/tempSchedController");
+var displayController = new displayController_1.DisplayController();
+var eventController = new eventController_1.EventController();
+var requestController = new requestController_1.RequestController();
+var tSController = new tempSchedController_1.TempSchedController();
 var tempSchedule = [];
 var submitForm = document.getElementById('file-submitter');
 var selectedFileSection = document.getElementById('selected-file');
 var createScheduleButton = document.getElementById('create-schedule');
 var clearSelectionButton = document.getElementById('clear-selection');
 var currentScheduleSection = document.querySelector('.current-schedules');
-var displaySelectedFile = function (fileName) {
-    selectedFileSection.innerText = "Selected File: ".concat(fileName);
-};
-var displayCurrentSchedules = function () { return __awaiter(_this, void 0, void 0, function () {
-    var currentSchedules;
+submitForm.addEventListener('submit', function (e) { return __awaiter(void 0, void 0, void 0, function () {
+    var fileData;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, window.sendReq.getCurrentSchedule()];
-            case 1:
-                currentSchedules = _a.sent();
-                currentSchedules.forEach(function (schedule) {
-                    var scheduleCard = document.createElement('div');
-                    scheduleCard.innerText = "".concat(schedule.length);
-                    scheduleCard.setAttribute('height', '20%');
-                    scheduleCard.setAttribute('width', '40%');
-                    scheduleCard.setAttribute('border', '3px solid black');
-                    scheduleCard.setAttribute('background-color', 'grey');
-                    currentScheduleSection.appendChild(scheduleCard);
-                });
-                return [2 /*return*/];
-        }
-    });
-}); };
-var addToTempSchedule = function (fileData) {
-    tempSchedule.push(fileData);
-};
-submitForm.addEventListener('submit', function (e) { return __awaiter(_this, void 0, void 0, function () {
-    var file, fileString, fileData;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                e.preventDefault();
-                file = e.target[0].files[0];
-                fileString = "".concat(file.path);
-                return [4 /*yield*/, window.sendReq.getFileData(fileString)];
+            case 0: return [4 /*yield*/, eventController.submitFile(e)];
             case 1:
                 fileData = _a.sent();
-                addToTempSchedule(fileData);
-                displaySelectedFile(file.name);
+                tempSchedule = tSController.addToTempSchedule(fileData, tempSchedule);
+                displayController.displaySelectedFile(selectedFileSection, '', e, "Selected File: ");
                 document.getElementById('file-selector-input').value = "";
                 return [2 /*return*/];
         }
     });
 }); });
-createScheduleButton.addEventListener('click', function () { return __awaiter(_this, void 0, void 0, function () {
+createScheduleButton.addEventListener('click', function () { return __awaiter(void 0, void 0, void 0, function () {
+    var currentSchedule;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, tempSchedule.forEach(function (schedule) {
-                    window.sendReq.addNewFile(schedule);
-                })];
+            case 0:
+                eventController.submitSchedule(tempSchedule);
+                return [4 /*yield*/, requestController.requestCurrentSchedule()];
             case 1:
-                _a.sent();
-                displayCurrentSchedules();
+                currentSchedule = _a.sent();
+                displayController.displayCurrentSchedules(currentSchedule, currentScheduleSection);
                 return [2 /*return*/];
         }
     });
 }); });
 clearSelectionButton.addEventListener('click', function () {
-    tempSchedule = [];
-    selectedFileSection.innerText = "Selected File: ";
+    tempSchedule = tSController.clearTempSchedule(tempSchedule);
+    eventController.clearSection(selectedFileSection, "Selected File: ");
 });

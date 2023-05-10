@@ -2,13 +2,25 @@ import { Schedule } from "../mainComponents/mainComponents";
 import { IDisplayController } from "./appComponents";
 
 export class DisplayController implements IDisplayController {
-    displaySelectedFile(fileName: string, docSection: HTMLElement, baseText?: string): void {
+    displaySelectedFile(docSection: HTMLElement, fileName?: string, event?: SubmitEvent, baseText?: string): void {
         if (baseText) {
-            docSection.innerText = `${baseText}${fileName}`;
+            if (event) {
+                const file = event.target[ 0 ].files[ 0 ];
+                docSection.innerText =`${baseText}${file.path}`;
+            }
+            else {
+                docSection.innerText = `${baseText}${fileName}`;
+            }
         }
         else 
         {
-            docSection.innerText = `${fileName}`
+            if (event) {
+                const file = event.target[ 0 ].files[ 0 ];
+                docSection.innerText =`${baseText}${file.path}`;
+            }
+            else {
+                docSection.innerText = `${fileName}`
+            }
         }
     }
 

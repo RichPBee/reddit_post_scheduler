@@ -12,5 +12,5 @@ package. The second digit will be used for added in features and design changes.
 ---
 Version 1.0: 
 
--
+- To deploy app, run npm install after cloning, following which, the command npm run start will compile the Typescript and launh the Electron app.
 ---
